@@ -35,44 +35,37 @@
     <main class="container-fluid d-flex justify-content-left">
         <div class="overlay"></div>
         <form class="form">
-          <div class="form-group">
-            <p class="text-light fs-2">Registrate</p>
-            <label for="exampleInputEmail1"><p class="text-light">Ingresa tu correo electronico</p></label>
-            <br><br>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
-          </div>
-          <br>
-          <div class="form-group">
-            <label for="exampleInputPassword1"><p class="text-light">Ingresa una contraseña</p></label>
-            <br><br>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-          </div>
-          <br>
-          <div class="form-group">
-              <label for="exampleInputPassword1"><p class="text-light">Confirma tu contraseña</p></label>
-              <br><br>
-              <input type="password" class="form-control" id="exampleInputPassword1">
+            <br>
+            <h2 class="text-light fs-2">Crea una cuenta</h2><br>
+            <div class="form-group">
+                <label for="username">Nombre de usuario:</label><br><br>
+                <input type="text" name="user_nombre" id="user_nombre" class="form-control" required>
             </div>
             <br>
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1"><p class="text-light">Acepto los acuerdos y condiciones</p></label>
-          </div>
-          <br>
-          <button type="submit" class="btn btn-light bg-light">Continuar</button>
+            <div class="form-group">
+                <label for="contra"> Contraseña:</label><br><br>
+                <input type="password" name="contra" id="contra" class="form-control" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="correo"> Correo electronico:</label><br><br>
+                <input type="email" name="correo" id="correo" class="form-control" required>
+            </div>
+            <br>
+            <button class="btn btn-light" type="reset">Cancelar</button>
+            <button id="enviar" class="btn btn-light" type="submit">Registrar</button>
         </form>
-      </main>
-      <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+    </main>
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
         <div class="footer-copyright py-3 text-white">
-          © 2023 DoggyQuo. Todos los derechos reservados
+            © 2023 DoggyQuo. Todos los derechos reservados
         </div>
-      </footer>
+    </footer>
     <script src="./js/jquery-3.7.0.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script>
         $(function () {
             $('#enviar').click(function (event) {
-
                 var formData = {
                     user_nombre: $('#user_nombre').val(),
                     contra: $('#contra').val(),
@@ -80,9 +73,8 @@
                 };
                 $.ajax({
                     url: 'https://localhost:7235/api/Register', // Reemplaza la URL con la ruta adecuada en tu backend
-                    method: post,
+                    type: 'POST',
                     data: JSON.stringify(formData),
-
                     contentType: 'application/json',
                     success: function (response) {
                         alert('Registro exitoso: ' + response);
