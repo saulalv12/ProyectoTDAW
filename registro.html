@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="Registro.css">
+    <title>Registro</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html">DoggyQuo</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="registro.html">Registrarse</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="login.html">Iniciar Sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="container-fluid d-flex justify-content-center">
+        <div class="overlay"></div>
+        <form id="Formulario" class="form">
+            <br>
+            <h2 class="text-light fs-2">Crea una cuenta</h2><br>
+            <div class="form-group">
+                <label for="user_nombre">Nombre de usuario:</label><br><br>
+                <input type="text" name="user_nombre" id="user_nombre" class="form-control" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="contra"> Contraseña:</label><br><br>
+                <input type="password" name="contra" id="contra" class="form-control" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="correo"> Correo electronico:</label><br><br>
+                <input type="email" name="correo" id="correo" class="form-control" required>
+            </div>
+            <br>
+            <button class="btn btn-light" type="reset">Cancelar</button>
+            <button id="enviar" class="btn btn-light" type="submit">Registrar</button>
+        </form>
+    </main>
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <div class="footer-copyright py-3 text-white">
+            © 2023 DoggyQuo. Todos los derechos reservados
+        </div>
+    </footer>
+    <script src="./js/jquery-3.7.0.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            $('#enviar').click(function (event) { 
+                event.preventDefault();
+                var formData = {
+                    user_nombre: $('#user_nombre').val(),
+                    contra: $('#contra').val(),
+                    correo: $('#correo').val()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://localhost:7235/api/Register',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        if (response === "Registro exitoso") { 
+                            alert('Registro exitoso');
+                            $('#Formulario')[0].reset();
+                            window.location.href = 'login.html';
+                        } else {
+                            alert(response);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error en el registro');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

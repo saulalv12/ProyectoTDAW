@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Usuarios</title>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">DoggyQuo</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="servicios.html">Servicios</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="formulario.html">Citas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Testimonios.html">Testimonios</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="usuarios.html">Usuarios</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item" id="registroBtn">
+                <a class="nav-link" aria-current="page" href="registro.html">Registrarse</a>
+              </li>
+              <li class="nav-item" id="inicioSesionBtn">
+                <a class="nav-link" aria-current="page" href="login.html">Iniciar Sesión</a>
+              </li>
+              <li class="nav-item" id="cerrarSesionBtn" style="display: none;">
+                <button class="btn btn-link nav-link" id="cerrar-sesion">Cerrar Sesión</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <section class="usuarios">
+    <h2 class="my-5 text-center">Tabla de usuarios</h2>
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Contraseña</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-usuarios"></tbody>
+      </table>
+    </div>
+  </section>
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+    <div class="footer-copyright py-3 text-white">
+      © 2023 DoggyQuo. Todos los derechos reservados
+    </div>
+  </footer>
+  <script src="./js/jquery-3.7.0.min.js"></script>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      
+      
+      function getCookie(name) {
+        var cookieArr = document.cookie.split(";");
+
+        for (var i = 0; i < cookieArr.length; i++) {
+          var cookiePair = cookieArr[i].split("=");
+          var cookieName = cookiePair[0].trim();
+
+          if (cookieName === name) {
+            return decodeURIComponent(cookiePair[1]);
+          }
+        }
+
+        return null;
+      }
+
+      // Verificar si la cookie de sesión está presente
+      var sesionIniciada = getCookie("sesionIniciada");
+
+      if (sesionIniciada) {
+        // Mostrar el botón de "Cerrar Sesión"
+        $("#inicioSesionBtn").hide();
+        $("#registroBtn").hide();
+        $("#cerrarSesionBtn").show();
+      } else {
+        // Mostrar los botones de "Registrarse" e "Iniciar Sesión"
+        $("#inicioSesionBtn").show();
+        $("#registroBtn").show();
+        $("#cerrarSesionBtn").hide();
+      }
+
+      // Función para eliminar la cookie de sesión
+      function deleteCookie(name) {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      }
+
+      // Evento click del botón "Cerrar Sesión"
+      $("#cerrarSesionBtn").click(function () {
+        deleteCookie("sesionIniciada");
+        alert("Sesión cerrada exitosamente");
+        window.location.href = "login.html";
+      });
+
+      $.ajax({
+        url: "https://localhost:7235/api/CRUD",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+          var tablaUsuarios = $("#tabla-usuarios");
+          tablaUsuarios.empty();
+          $.each(data, function(index, usuario) {
+            var fila =
+              "<tr>" +
+              "<td>" + usuario.id + "</td>" +
+              "<td>" + usuario.user_nombre + "</td>" +
+              "<td>" + usuario.contra + "</td>" +
+              "<td>" + usuario.correo + "</td>" +
+              "<td>" +
+              "<button class='btn btn-primary editar-usuario' data-id='" + usuario.id + "'>Editar</button> " +
+              "<button class='btn btn-danger eliminar-usuario' data-id='" + usuario.id + "'>Eliminar</button>" +
+              "</td>" +
+              "</tr>";
+            tablaUsuarios.append(fila);
+          });
+        },
+        error: function() {
+          console.log("Error al obtener los usuarios");
+        }
+      });
+      $(document).on("click", ".editar-usuario", function() {
+        var filaUsuario = $(this).closest("tr");
+        var idUsuario = $(this).data("id");
+        var nombreActual = filaUsuario.find("td:nth-child(2)").text();
+        var contraActual = filaUsuario.find("td:nth-child(3)").text();
+        var correoActual = filaUsuario.find("td:nth-child(4)").text();
+        var formularioEdicion =
+          "<td>" + idUsuario + "</td>" +
+          "<td><input type='text' class='form-control nombre' value='" + nombreActual + "'></td>" +
+          "<td><input type='text' class='form-control contra' value='" + contraActual + "'></td>" +
+          "<td><input type='text' class='form-control correo' value='" + correoActual + "'></td>" +
+          "<td>" +
+          "<button class='btn btn-success guardar-edicion' data-id='" + idUsuario + "'>Guardar</button> " +
+          "<button class='btn btn-secondary cancelar-edicion'>Cancelar</button>" +
+          "</td>";
+        filaUsuario.html(formularioEdicion);
+      });
+      $(document).on("click", ".guardar-edicion", function() {
+        var filaUsuario = $(this).closest("tr");
+        var idUsuario = $(this).data("id");
+        var nuevoNombre = filaUsuario.find("input.nombre").val();
+        var nuevaContra = filaUsuario.find("input.contra").val();
+        var nuevoCorreo = filaUsuario.find("input.correo").val();
+        var usuario = {
+          user_nombre: nuevoNombre,
+          contra: nuevaContra,
+          correo: nuevoCorreo
+        };
+        $.ajax({
+          url: 'https://localhost:7235/api/CRUD/' + idUsuario,
+          type: 'PUT',
+          data: JSON.stringify(usuario),
+          contentType: 'application/json',
+          success: function(response) {
+            var nuevaFila =
+              "<td>" + idUsuario + "</td>" +
+              "<td>" + nuevoNombre + "</td>" +
+              "<td>" + nuevaContra + "</td>" +
+              "<td>" + nuevoCorreo + "</td>" +
+              "<td>" +
+              "<button class='btn btn-primary editar-usuario' data-id='" + idUsuario + "'>Editar</button> " +
+              "<button class='btn btn-danger eliminar-usuario' data-id='" + idUsuario + "'>Eliminar</button>" +
+              "</td>";
+            filaUsuario.html(nuevaFila);
+            console.log(response);
+          },
+          error: function(error) {
+            console.error(error);
+          }
+        });
+      });
+      $(document).on("click", ".cancelar-edicion", function() {
+        location.reload();
+      });
+       $(document).on("click", ".eliminar-usuario", function() {
+        var idUsuario = $(this).data("id");
+        var fila = $(this).closest("tr"); 
+        $.ajax({
+            url: 'https://localhost:7235/api/CRUD/' + idUsuario,
+            type: 'DELETE',
+            success: function(response) {
+            alert("Se ha eliminado el registro de forma correcta.");
+            fila.remove();
+        },
+        error: function(error) {
+            alert("No se eliminó el registro.");
+        }
+        });
+        }); 
+    });
+</script>
+</body>
+</html>

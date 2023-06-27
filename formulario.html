@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <title>Formulario</title>
+</head>
+<div class="col-12 col-md-12">
+<body style="background-image: url('imagenes/fondo_form.avif'); background-repeat:no-repeat; background-size: cover;">
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html">DoggyQuo</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="servicios.html">Servicios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="formulario.html">Citas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Testimonios.html">Testimonios</a>
+                            </li>
+                            <li class="nav-item" id="usuariosBtn">
+                                <a class="nav-link" aria-current="page" href="usuarios.html">Usuarios</a>
+                              </li>
+                              <li class="nav-item" id="misCitasBtn">
+                                <a class="nav-link" aria-current="page" href="misCitas.html">Mis Pedidos</a>
+                              </li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item" id="registroBtn">
+                                <a class="nav-link" aria-current="page" href="registro.html">Registrarse</a>
+                            </li>
+                            <li class="nav-item" id="inicioSesionBtn">
+                                <a class="nav-link" aria-current="page" href="login.html">Iniciar Sesión</a>
+                            </li>
+                            <li class="nav-item" id="cerrarSesionBtn" style="display: none;">
+                                <button class="btn btn-link nav-link" id="cerrar-sesion">Cerrar Sesión</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section>
+        <br>
+          <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <form id="Formulario" class="m-4">
+                        <h3 class="dark-grey-text text-center font-weight-bold">Cita de servicios de DoggyQuo</h3>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="text-left">DATOS PERSONALES</h6>
+                                <hr>
+                            </div>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="form-group col-4 mb-3">
+                                        <i class="fas fa-user prefix grey-text"></i>
+                                        <label for="nombre_usuario"> Nombre(s):</label>
+                                        <input type="text" name="nombre_usuario" id="nombre_usuario"
+                                            class="form-control" required>
+                                    </div>
+                                    <div class="form-group col-4 mb-3">
+                                        <label for="apellido_paterno">Apellido paterno:</label>
+                                        <input type="text" name="apellido_paterno" id="apellido_paterno"
+                                            class="form-control" required>
+                                    </div>
+                                    <div class="form-group col-4 mb-3">
+                                        <label for="apellido_materno">Apellido Materno:</label>
+                                        <input type="text" name="apellido_materno" id="apellido_materno"
+                                            class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 mb-3">
+                                        <div class="md-form  m-0">
+                                            <i class="fas fa-id-badge prefix grey-text"></i>
+                                            <label for="curp"> CURP:</label>
+                                            <input type="text" id="curp" name="curp" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 mb-3">
+                                        <div class="md-form m-0">
+                                            <i class="fas fa-envelope prefix grey-text"></i>
+                                            <label for="correo_electronico"> Correo electronico:</label>
+                                            <input type="email" name="correo_electronico" id="correo_electronico"
+                                                class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 mb-3">
+                                        <i class="fas fa-phone"></i>
+                                        <label for="telefono">Teléfono:</label>
+                                        <input type="text" name="telefono" id="telefono" class="form-control"
+                                            maxlength="10" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 mb-3">
+                                        <i class="fas fa-map-marker-alt prefix grey-text"></i>
+                                        <label> Dirección</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 mb-3">
+                                        <i class="fas fa-road"></i>
+                                        <label for="calle">Calle:</label>
+                                        <input type="text" name="calle" id="calle" class="form-control" required>
+                                    </div>
+                                    <div class="col-4 mb-3">
+                                        <i class="fas fa-hashtag"></i>
+                                        <label for="numero"> Número:</label>
+                                        <input type="text" name="numero" id="numero" class="form-control" required>
+                                    </div>
+                                    <div class="col-4 mb-3">
+                                        <i class="fas fa-map-marked-alt prefix grey-text"></i>
+                                        <label for="colonia"> Colonia:</label>
+                                        <input type="text" name="colonia" id="colonia" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <i class="fas fa-mail-bulk"></i>
+                                        <label for="codigo_postal"> Código postal:</label>
+                                        <input type="text" maxlength="5" name="codigo_postal" id="codigo_postal"
+                                            class="form-control" required>
+                                    </div>
+                                    <div class="col-6 mb-6">
+                                        <i class="fas fa-building"></i>
+                                        <label for="alcaldia"> Alcaldía o municipio:</label>
+                                        <select class="col-12 mb-12; custom-select mr-sm-2 select" name="alcaldia" id="alcaldia"
+                                            required>
+                                            <option value="Alvaro_Obregon">Álvaro Obregón</option>
+                                            <option value="Azcapotzalco">Azcapotzalco</option>
+                                            <option value="Benito_Juarez">Benito Juárez</option>
+                                            <option value="Coyoacan">Coyoacán</option>
+                                            <option value="Cuajimalpa_de_Morelos">Cuajimalpa de Morelos</option>
+                                            <option value="Cuauhtemoc">Cuauhtémoc</option>
+                                            <option value="Gustavo_A_Madero">Gustavo A. Madero</option>
+                                            <option value="Iztacalco">Iztacalco</option>
+                                            <option value="Iztapalapa">Iztapalapa</option>
+                                            <option value="La_Magdalena_Contreras">La Magdalena Contreras</option>
+                                            <option value="Miguel_Hidalgo">Miguel Hidalgo</option>
+                                            <option value="Milpa_Alta">Milpa Alta</option>
+                                            <option value="Tlahuac">Tláhuac</option>
+                                            <option value="Tlalpan">Tlalpan</option>
+                                            <option value="Venustiano_Carranza">Venustiano Carranza</option>
+                                            <option value="Xochimilco">Xochimilco</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="text-left">DATOS DE LA MASCOTA</h6>
+                                <hr>
+                            </div>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <label for="nombre_mascota"> Nombre:</label>
+                                        <input type="text" name="nombre_mascota" id="nombre_mascota"
+                                            class="form-control" required>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="peso"> Peso (en kg): </label>
+                                        <input type="text" name="peso" id="peso" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 mb-3">
+                                        <label for="tamano_mascota"> Tamaño (lomo en cm):</label>
+                                        <select class="col-12 md-12; custom-select mr-sm-2 select" name="tamano_mascota"
+                                            id="tamano_mascota" required>
+                                            <option value="Chico">Chico (16-25cm)</option>
+                                            <option value="Mediano">Mediano (26-34cm)</option>
+                                            <option value="Grande">Grande (35-44cm)</option>
+                                            <option value="Extra grande">Extra grande(>45cm)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4 mb-3">
+                                        <label for="tamano_pelaje"> Tamaño de pelaje:</label>
+                                        <select class="custom-select mr-sm-2 select" name="tamano_pelaje"
+                                            id="tamano_pelaje" required>
+                                            <option value="Duro">Duro</option>
+                                            <option value="Rizado">Rizado</option>
+                                            <option value="Corto">Corto</option>
+                                            <option value="Largo">Largo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4 mb-3">
+                                        <label for="tipo_mascota"> Tipo:</label>
+                                        <select class="custom-select mr-sm-2 select" name="tipo_mascota"
+                                            id="tipo_mascota" required>
+                                            <option value="Perro">Perro</option>
+                                            <option value="Gato">Gato</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="text-left">DATOS DE LA CITA</h6>
+                                <hr>
+                            </div>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <label for="tipo_servicio"> Tipo de servicio:</label><br>
+                                        <select class="custom-select mr-sm-2 select" name="tipo_servicio"
+                                            id="tipo_servicio" required>
+                                            <option value="Estetica">Estetica</option>
+                                            <option value="Veterinario">Veterinario</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <i class="fas fa-calendar prefix grey-text"></i>
+                                        <label for="fecha_cita"> Fecha de la cita:</label>
+                                        <input type="date" id="fecha_cita" name="fecha_cita"
+                                            class="form-control mt-n2 ml-0 custom-select-sm" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="comentarios">Comentarios sobre tu mascota:</label><br>
+                                        <textarea name="comentarios" id="comentarios" rows="8" cols="30"
+                                            class="custom-textarea"
+                                            placeholder="Ingresa los tratos especiales que necesite tu mascota"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="form-group mt-3">
+                            <div class="text-center">
+                                <button class="btn btn-dark" type="reset"><i
+                                        class="fas fa-eraser prefix mr-2"></i>Limpiar</button>
+                                <button id="enviar" class="btn btn-dark" type="submit"><i
+                                        class="fas fa-paper-plane prefix mr-2"></i> Enviar </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <div class="footer-copyright py-3 text-white">
+            © 2023 DoggyQuo. Todos los derechos reservados
+        </div>
+    </footer>
+</div>
+    <script src="./js/jquery-3.7.0.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <script>
+        // Función para obtener el valor de una cookie por su nombre
+        function getCookie(name) {
+        var cookies = document.cookie.split("; ");
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].split("=");
+          if (cookie[0] === name) {
+            return cookie[1];
+          }
+        }
+        return "";
+      }
+      
+        // Verificar si la cookie de sesión está presente
+        var sesionIniciada = getCookie("sesionIniciada");
+
+        if (sesionIniciada) {
+            // Mostrar el botón de "Cerrar Sesión"
+            $("#inicioSesionBtn").hide();
+            $("#registroBtn").hide();
+            $("#cerrarSesionBtn").show();
+            var datosJSON = JSON.parse(sesionIniciada);
+            // Accede al nombre de usuario
+            var nombre_cookie = datosJSON.user_nombre;
+        } else {
+            // Mostrar los botones de "Registrarse" e "Iniciar Sesión"
+            $("#inicioSesionBtn").show();
+            $("#registroBtn").show();
+            $("#cerrarSesionBtn").hide();
+        }
+        if(nombre_cookie ==='admin'){
+        $("#usuariosBtn").show();
+        $("#misCitasBtn").hide();
+      }else{
+        $("#usuariosBtn").hide();
+        $("#misCitasBtn").show();
+      }
+
+        // Función para eliminar la cookie de sesión
+        function deleteCookie(name) {
+            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+
+        // Evento click del botón "Cerrar Sesión"
+        $("#cerrarSesionBtn").click(function () {
+            deleteCookie("sesionIniciada");
+            alert("Sesión cerrada exitosamente");
+            window.location.href = "login.html";
+        });
+
+        $('#enviar').click(function (event) {
+                event.preventDefault();
+                if (sesionIniciada){
+                    var formData = {
+                    nombre_cookie: nombre_cookie,
+                    nombre_usuario: $('#nombre_usuario').val(),
+                    apellido_paterno: $('#apellido_paterno').val(),
+                    apellido_materno: $('#apellido_materno').val(),
+                    curp: $('#curp').val(),
+                    correo_electronico: $('#correo_electronico').val(),
+                    telefono: $('#telefono').val(),
+                    calle: $('#calle').val(),
+                    numero: $('#numero').val(),
+                    colonia: $('#colonia').val(),
+                    codigo_postal: $('#codigo_postal').val(),
+                    alcaldia: $('#alcaldia').val(),
+                    nombre_mascota: $('#nombre_mascota').val(),
+                    peso: $('#peso').val(),
+                    tamano_mascota: $('#tamano_mascota').val(),
+                    tamano_pelaje: $('#tamano_pelaje').val(),
+                    tipo_mascota: $('#tipo_mascota').val(),
+                    tipo_servicio: $('#tipo_servicio').val(),
+                    fecha_cita: $('#fecha_cita').val(),
+                    comentarios: $('#comentarios').val()
+                    };
+                }
+                
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://localhost:7235/api/Cita',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        if (response === "Cita agregada exitosamente") {
+                            alert('La cita ha sido registrada');
+                            $('#Formulario')[0].reset();
+                        } else {
+                            alert(response);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error en el registro de la cita');
+                    }
+                });
+            });
+    </script>
+</body>
+
+</html>

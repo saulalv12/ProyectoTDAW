@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">DoggyQuo</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="registro.html">Registrarse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="login.html">Iniciar Sesión</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main class="container-fluid d-flex justify-content-center">
+    <div class="overlay"></div>
+    <form class="form">
+      <div class="form-group">
+        <h1 class="text-light fs-2">Iniciar Sesión</h1>
+        <label for="user_nombre">Usuario:</label><br><br>
+        <input type="text" name="user_nombre" id="user_nombre" class="form-control" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="contra">Contraseña:</label><br><br>
+        <input type="password" name="contra" id="contra" class="form-control" required>
+      </div>
+      <br>
+      <button id="enviar" class="btn btn-light" type="submit">Iniciar Sesión</button>
+    </form>
+  </main>
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+    <div class="footer-copyright py-3 text-white">
+      © 2023 DoggyQuo. Todos los derechos reservados
+    </div>
+  </footer>
+  <script src="./js/jquery-3.7.0.min.js"></script>
+  <script src="./js/jquery.cookie.js"></script>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(function () {
+      // Función para crear una cookie
+      function setCookie(name, value, minutes) {
+        var expires = "";
+
+        if (minutes) {
+          var date = new Date();
+          date.setTime(date.getTime() + (minutes * 60 * 1000));
+          expires = "; expires=" + date.toUTCString();
+        }
+
+        document.cookie = name + "=" + value + expires + "; path=/";
+      }
+
+      $('#enviar').click(function (event) {
+        event.preventDefault();
+        var formData = {
+          user_nombre: $('#user_nombre').val(),
+          contra: $('#contra').val(),
+        };
+        var datos = {
+          user_nombre: formData.user_nombre,
+          contra: formData.contra
+        };
+        var datosJSON = JSON.stringify(datos);
+        $.ajax({
+          type: 'POST',
+          url: 'https://localhost:7235/api/Login',
+          data: JSON.stringify(formData),
+          contentType: 'application/json',
+          success: function (response) {
+            if (response === 'Inicio de sesión exitoso') {
+              setCookie('sesionIniciada', datosJSON, 10); // Crear la cookie de sesión con 15 minutos de duración
+              alert('Inicio de sesión exitoso');
+              window.location.href = 'index.html';
+            } else {
+              alert('Credenciales inválidas');
+            }
+          },
+          error: function (xhr, status, error) {
+            alert('Error en el inicio de sesión');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

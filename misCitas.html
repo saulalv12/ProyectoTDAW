@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>DoggyQuo</title>
+</head>
+
+<body>
+    <header>  
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">DoggyQuo</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="servicios.html">Servicios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="formulario.html">Citas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Testimonios.html">Testimonios</a>
+                            </li>
+                            <li class="nav-item" id="usuariosBtn">
+                                <a class="nav-link" aria-current="page" href="usuarios.html">Usuarios</a>
+                            </li>
+                            <li class="nav-item" id="misCitasBtn">
+                                <a class="nav-link" aria-current="page" href="misCitas.html">Mis Pedidos</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item" id="registroBtn">
+                                <a class="nav-link" aria-current="page" href="registro.html">Registrarse</a>
+                            </li>
+                            <li class="nav-item" id="inicioSesionBtn">
+                                <a class="nav-link" aria-current="page" href="login.html">Iniciar Sesión</a>
+                            </li>
+                            <li class="nav-item" id="cerrarSesionBtn" style="display: none;">
+                                <button class="btn btn-link nav-link" id="cerrar-sesion">Cerrar Sesión</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header> 
+    <section class="miscitas">
+        <h2 class="my-5 text-center">Citas generadas</h2>
+        <div class="container">
+            <div class="row">
+                <div clas="col-12">
+                    <h3>Datos personales</h3>
+                    <table class="table table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido Paterno</th>
+                                <th>Apellido Materno</th>
+                                <th>Teléfono</th>
+                                <th>Calle</th>
+                                <th>Número</th>
+                                <th>colonia</th>
+                                <th>Codigo Postal</th>
+                                <th>alcaldia</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-datos-personales"></tbody>
+                    </table>
+                </div>
+                <div clas="col-12">
+                    <h3>Datos de la cita</h3>
+                    <table class="table table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>nombre de la mascota</th>
+                                <th>peso</th>
+                                <th>Tamaño de la mascota</th>
+                                <th>Tipo de mascota</th>
+                                <th>Tipo de servicio</th>
+                                <th>fecha de la cita</th>
+                                <th>comentarios</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-datos-cita"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <div class="footer-copyright py-3 text-white">
+            © 2023 DoggyQuo. Todos los derechos reservados
+        </div>
+    </footer>
+    <script src="./js/jquery-3.7.0.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Función para obtener el valor de una cookie por su nombre
+            function getCookie(name) {
+                var cookieArr = document.cookie.split(";");
+
+                for (var i = 0; i < cookieArr.length; i++) {
+                    var cookiePair = cookieArr[i].split("=");
+                    var cookieName = cookiePair[0].trim();
+
+                    if (cookieName === name) {
+                        return decodeURIComponent(cookiePair[1]);
+                    }
+                }
+
+                return null;
+            }
+
+            // Verificar si la cookie de sesión está presente
+            var sesionIniciada = getCookie("sesionIniciada");
+
+            if (sesionIniciada) {
+                // Mostrar el botón de "Cerrar Sesión"
+                $("#inicioSesionBtn").hide();
+                $("#registroBtn").hide();
+                $("#cerrarSesionBtn").show();
+                var datosJSON = JSON.parse(sesionIniciada);
+                // Accede al nombre de usuario
+                var nombre_cookie = datosJSON.user_nombre;
+            } else {
+                // Mostrar los botones de "Registrarse" e "Iniciar Sesión"
+                $("#inicioSesionBtn").show();
+                $("#registroBtn").show();
+                $("#cerrarSesionBtn").hide();
+            }
+            if (nombre_cookie === 'admin') {
+                $("#usuariosBtn").show();
+                $("#misCitasBtn").hide();
+            } else {
+                $("#usuariosBtn").hide();
+                $("#misCitasBtn").show();
+            }
+            // Función para eliminar la cookie de sesión
+            function deleteCookie(name) {
+                document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            }
+
+            // Evento click del botón "Cerrar Sesión"
+            $("#cerrarSesionBtn").click(function () {
+                deleteCookie("sesionIniciada");
+                alert("Sesión cerrada exitosamente");
+                window.location.href = "login.html";
+            });
+
+            $(document).on("click", ".btn-danger", function () {
+                var citaId = $(this).data("id");
+                $.ajax({
+                    url: "https://localhost:7235/api/CRUDCita/" + citaId,
+                    type: "DELETE",
+                    success: function () {
+                        alert("Cita eliminada exitosamente");
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Error al eliminar la cita");
+                    }
+                });
+            });
+            $.ajax({
+                url: "https://localhost:7235/api/CRUDCita",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var tablaDatosPersonales = $("#tabla-datos-personales");
+                    var tablaDatosCita = $("#tabla-datos-cita");
+
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].nombre_cookie === nombre_cookie) {
+                            var filaDatosPersonales = "<tr>" +
+                                "<td>" + data[i].id + "</td>" +
+                                "<td>" + data[i].nombre_usuario + "</td>" +
+                                "<td>" + data[i].apellido_paterno + "</td>" +
+                                "<td>" + data[i].apellido_materno + "</td>" +
+                                "<td>" + data[i].telefono + "</td>" +
+                                "<td>" + data[i].calle + "</td>" +
+                                "<td>" + data[i].numero + "</td>" +
+                                "<td>" + data[i].colonia + "</td>" +
+                                "<td>" + data[i].codigo_postal + "</td>" +
+                                "<td>" + data[i].alcaldia + "</td>" +
+                                //"<td><button class='btn btn-primary editar-cita' data-id='" + data[i].id + "'>Editar</button></td>" +
+                                "<td><button class='btn btn-danger' data-id='" + data[i].id + "'>Eliminar</button></td>" +
+                                "</tr>";
+
+                            tablaDatosPersonales.append(filaDatosPersonales);
+
+                            var filaDatosCita = "<tr>" +
+                                "<td>" + data[i].id + "</td>" +
+                                "<td>" + data[i].nombre_mascota + "</td>" +
+                                "<td>" + data[i].peso + "</td>" +
+                                "<td>" + data[i].tamano_mascota + "</td>" +
+                                "<td>" + data[i].tipo_mascota + "</td>" +
+                                "<td>" + data[i].tipo_servicio + "</td>" +
+                                "<td>" + data[i].fecha_cita + "</td>" +
+                                "<td>" + data[i].comentarios + "</td>" +
+                                //"<td><button class='btn btn-primary' data-id='" + data[i].id + "''>Editar</button></td>" +
+                                "<td><button class='btn btn-danger' data-id='" + data[i].id + "'>Eliminar</button></td>" +
+                                "</tr>";
+
+                            tablaDatosCita.append(filaDatosCita);
+                        }
+                    }
+                },
+                error: function () {
+                    alert("Error al cargar los datos de las citas");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

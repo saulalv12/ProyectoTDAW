@@ -1,0 +1,24 @@
+header{
+    background-color: black;
+}
+.carrusel img {
+    max-height: 500px;
+  }
+.btn-grande {
+    padding: 15px 30px;
+    font-size: 18px;
+}
+.nosotros{
+    text-align: justify;
+}
+.nosotros img {
+    max-height: 200px;
+  }
+footer {
+    background-color: black;
+    color: white;
+    position: relative;
+    z-index: 2;
+    padding-left: 10px;
+    top:3vh;
+}
